@@ -3,23 +3,20 @@ import axios from 'axios';
 import qs from 'qs';
 
 
-const Login = () => {
-    const loginReducer = (state, action) => {
-        switch (action.type) {
-            case 'LOGIN':
-                return [
-                    ...state,
-                    { email: action.email, token: action.token }
-                ]
+const Login = (props) => {
+
+    useEffect(() => {
+        let session = localStorage.getItem('session')
+        if(session){
+            props.history.push('/dashboard')
         }
-    }
-    const [session, dispatch] = useReducer(loginReducer, [])
+        
+    }, [])
+   
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    useEffect(() => {
-        console.log('change')
-    })
+    
 
     const onSubmit = async (e) => {
         try {
@@ -30,7 +27,9 @@ const Login = () => {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             })
-            console.log(res)
+            localStorage.setItem('session',JSON.stringify(res.data))
+            props.history.push('/dashboard')
+            
         } catch (error) {
             console.log(error)
         }

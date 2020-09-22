@@ -1,20 +1,29 @@
-import React from 'react'
-import {Route, Router, Switch} from 'react-router-dom'
-import { createBrowserHistory } from "history";
+import React,{ useEffect } from 'react'
+import { Route, Switch } from 'react-router-dom'
 
 import LoginPage from '../components/Login'
+import Dashboard from '../components/Dashboard'
+import NotFoundPage from '../components/NotFoundPage'
+import UserContext from '../context/user-context'
 
-export const history = createBrowserHistory()
+import PrivateRoute from '../routers/PrivateRoute'
+import PublicRoute from '../routers/PublicRoute'
 
-const AppRouter = () => (
-    <Router history={history}>
+
+const AppRouter = (props) => {
+    const isLogin = true;
+    console.log('props',props)
+    return (
         <div>
-            <Switch>
-                <Route path='/' component={LoginPage} exact={true} />
-                <Route path='/test' component={LoginPage}/>
-            </Switch>
+            <UserContext.Provider>
+                <Switch>
+                    <PublicRoute path='/' component={LoginPage} exact={true} />
+                    <PrivateRoute path='/dashboard' component={Dashboard} />
+                    <Route component={NotFoundPage} />
+                </Switch>
+            </UserContext.Provider>
         </div>
-    </Router>
-)
+    )
+}
 
 export default AppRouter;
