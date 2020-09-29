@@ -36,18 +36,6 @@ const Login = (props) => {
     }
 
 
-
-    // return (
-    //     <div>
-    //         <h1>Login</h1>
-    //         <form onSubmit={onSubmit}>
-    //             <input type='text' name='email' onChange={(e) => setEmail(e.target.value)} placeholder='Email' />
-    //             <input type='password' name='password' onChange={(e) => setPassword(e.target.value)} placeholder='Email' />
-    //             <button>Login</button>
-    //         </form>
-    //     </div>
-    // )
-
     return (
         <div id="login">
         <h3 className="text-center text-white pt-5">Login form</h3>
